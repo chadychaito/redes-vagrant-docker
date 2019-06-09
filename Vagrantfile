@@ -18,18 +18,16 @@ Vagrant.configure(2) do |config|
       		vb.memory = "4096"
     	  	vb.name = "containerservidor"
   	end
-	containerservidor.vm.provision "shell" do |s|
-		s.inline = "sudo apt update"
-        s.inline = "sudo apt -y upgrade"
-		s.inline = "sudo apt -y install apt-transport-https ca-certificates curl gnupg-agent software-properties-common"
-		s.inline = "curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -"
-		s.inline = "sudo apt-key fingerprint 0EBFCD88"
-		s.inline = 'sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"'
-		s.inline = "sudo apt update"
-		s.inline = "sudo apt -y install docker-ce docker-ce-cli containerd.io"
-		s.inline = "sudo systemctl start docker"
-		s.inline = "sudo systemctl enable docker"
-		s.inline = 'sudo gpasswd -a "${USER}" docker'
+	containerservidor.vm.provision "shell", privileged: "false", inline: <<-SHELL
+		sudo apt -y install apt-transport-https ca-certificates curl gnupg-agent software-properties-common
+		curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+		sudo apt-key fingerprint 0EBFCD88
+		sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
+		sudo apt update
+		sudo apt -y install docker-ce docker-ce-cli containerd.io
+		sudo systemctl start docker
+		sudo systemctl enable docker
+		sudo gpasswd -a "${USER}" docker
 	end
 end
 
@@ -43,18 +41,16 @@ config.vm.define "containercliente" do |containercliente|
       		vb.memory = "1500"
     	  	vb.name = "containercliente"
   	end
-	containercliente.vm.provision "shell" do |s|
-        s.inline = "sudo apt update"
-        s.inline = "sudo apt -y upgrade"
-		s.inline = "sudo apt -y install apt-transport-https ca-certificates curl gnupg-agent software-properties-common"
-		s.inline = "curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -"
-		s.inline = "sudo apt-key fingerprint 0EBFCD88"
-		s.inline = 'sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"'
-		s.inline = "sudo apt update"
-		s.inline = "sudo apt -y install docker-ce docker-ce-cli containerd.io"
-		s.inline = "sudo systemctl start docker"
-		s.inline = "sudo systemctl enable docker"
-		s.inline = 'sudo gpasswd -a "${USER}" docker'
+	containercliente.vm.provision "shell", privileged: "false", inline: <<-SHELL
+		sudo apt -y install apt-transport-https ca-certificates curl gnupg-agent software-properties-common
+		curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+		sudo apt-key fingerprint 0EBFCD88
+		sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
+		sudo apt update
+		sudo apt -y install docker-ce docker-ce-cli containerd.io
+		sudo systemctl start docker
+		sudo systemctl enable docker
+		sudo gpasswd -a "${USER}" docker
 	end
 end
 end
