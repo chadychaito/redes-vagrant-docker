@@ -24,7 +24,7 @@ Vagrant.configure(2) do |config|
 		s.inline = "sudo apt -y install apt-transport-https ca-certificates curl gnupg-agent software-properties-common"
 		s.inline = "curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -"
 		s.inline = "sudo apt-key fingerprint 0EBFCD88"
-		s.inline = "sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable""
+		s.inline = 'sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"'
 		s.inline = "sudo apt update"
 		s.inline = "sudo apt -y install docker-ce docker-ce-cli containerd.io"
 		s.inline = "sudo systemctl start docker"
@@ -49,7 +49,7 @@ config.vm.define "containercliente" do |containercliente|
 		s.inline = "sudo apt -y install apt-transport-https ca-certificates curl gnupg-agent software-properties-common"
 		s.inline = "curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -"
 		s.inline = "sudo apt-key fingerprint 0EBFCD88"
-		s.inline = "sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable""
+		s.inline = 'sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"'
 		s.inline = "sudo apt update"
 		s.inline = "sudo apt -y install docker-ce docker-ce-cli containerd.io"
 		s.inline = "sudo systemctl start docker"
