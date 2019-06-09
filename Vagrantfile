@@ -29,7 +29,7 @@ Vagrant.configure(2) do |config|
 		s.inline = "sudo apt -y install docker-ce docker-ce-cli containerd.io"
 		s.inline = "sudo systemctl start docker"
 		s.inline = "sudo systemctl enable docker"
-		s.inline = "sudo gpasswd -a "${USER}" docker"
+		s.inline = 'sudo gpasswd -a "${USER}" docker'
 	end
 end
 
@@ -54,7 +54,7 @@ config.vm.define "containercliente" do |containercliente|
 		s.inline = "sudo apt -y install docker-ce docker-ce-cli containerd.io"
 		s.inline = "sudo systemctl start docker"
 		s.inline = "sudo systemctl enable docker"
-		s.inline = "sudo gpasswd -a "${USER}" docker"
+		s.inline = 'sudo gpasswd -a "${USER}" docker'
 	end
 end
 end
