@@ -7,34 +7,34 @@
 # you're doing.
 
 Vagrant.configure(2) do |config|
-  config.vm.define "container-servidor" do |container-servidor|
+  config.vm.define "containerservidor" do |containerservidor|
 
- 	container-servidor.vm.box = "ubuntu/bionic64"
- 	container-servidor.vm.network "forwarded_port", guest: 9000, host: 9001
-  	#container-servidor.vm.network "public_network", bridge: "ens3"
-  	container-servidor.vm.network "private_network", ip: "192.168.50.2"
-	container-servidor.vm.hostname = "container-servidor"
-  	container-servidor.vm.provider "virtualbox" do |vb|
+ 	containerservidor.vm.box = "ubuntu/bionic64"
+ 	containerservidor.vm.network "forwarded_port", guest: 9000, host: 9001
+  	#containerservidor.vm.network "public_network", bridge: "ens3"
+  	containerservidor.vm.network "private_network", ip: "192.168.50.2"
+	containerservidor.vm.hostname = "containerservidor"
+  	containerservidor.vm.provider "virtualbox" do |vb|
       		vb.memory = "4096"
-    	  	vb.name = "container-servidor"
+    	  	vb.name = "containerservidor"
   	end
-	container-servidor.vm.provision "shell" do |s|
+	containerservidor.vm.provision "shell" do |s|
 		s.inline = "sudo apt update"
                 s.inline = "sudo apt -y upgrade"
 	end
 end
 
-config.vm.define "container-cliente" do |container-cliente|
+config.vm.define "containercliente" do |containercliente|
 
- 	container-cliente.vm.box = "ubuntu/bionic64"
-  	#container-cliente.vm.network "public_network"
-  	container-cliente.vm.network "private_network", ip: "192.168.50.3"
-	container-cliente.vm.hostname = "container-cliente"
-  	container-cliente.vm.provider "virtualbox" do |vb|
+ 	containercliente.vm.box = "ubuntu/bionic64"
+  	#containercliente.vm.network "public_network"
+  	containercliente.vm.network "private_network", ip: "192.168.50.3"
+	containercliente.vm.hostname = "containercliente"
+  	containercliente.vm.provider "virtualbox" do |vb|
       		vb.memory = "1500"
-    	  	vb.name = "container-cliente"
+    	  	vb.name = "containercliente"
   	end
-	container-cliente.vm.provision "shell" do |s|
+	containercliente.vm.provision "shell" do |s|
                 s.inline = "sudo apt update"
                 s.inline = "sudo apt -y upgrade"
 	end
