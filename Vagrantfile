@@ -28,12 +28,13 @@ Vagrant.configure(2) do |config|
 			sudo systemctl start docker
 			sudo systemctl enable docker
 			sudo gpasswd -a "${USER}" docker
+			docker swarm init --advertise-addr 192.168.50.2:2377
+			docker swarm join-token -q worker > /vagrant/token
 		SHELL
 
 	end
 
 	config.vm.define "containercliente" do |containercliente|
-	
 		containercliente.vm.box = "ubuntu/bionic64"
 		#containercliente.vm.network "public_network"
 		containercliente.vm.network "private_network", ip: "192.168.50.3"
@@ -52,6 +53,7 @@ Vagrant.configure(2) do |config|
 			sudo systemctl start docker
 			sudo systemctl enable docker
 			sudo gpasswd -a "${USER}" docker
+			docker swarm join –token `cat /vagrant/token` 192.168.50.2:2377
 		SHELL
 	end
 end
