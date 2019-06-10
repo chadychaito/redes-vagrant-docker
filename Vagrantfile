@@ -10,7 +10,7 @@ Vagrant.configure(2) do |config|
  	config.vm.define "containerservidor" do |containerservidor|
 
 		containerservidor.vm.box = "ubuntu/bionic64"
-		containerservidor.vm.network "forwarded_port", guest: 9000, host: 9001
+		containerservidor.vm.network "forwarded_port", guest: 9000, host: 9002
 		containerservidor.vm.network "private_network", ip: "192.168.50.2"
 		containerservidor.vm.hostname = "containerservidor"
 		containerservidor.vm.provider "virtualbox" do |vb|
