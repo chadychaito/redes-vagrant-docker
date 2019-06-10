@@ -28,8 +28,8 @@ Vagrant.configure(2) do |config|
 			sudo systemctl start docker
 			sudo systemctl enable docker
 			sudo gpasswd -a "${USER}" docker
-			docker swarm init --advertise-addr 192.168.50.2:2377
-			docker swarm join-token -q worker > /vagrant/token
+			#docker swarm init --advertise-addr 192.168.50.2:2377
+			#docker swarm join-token -q worker > /vagrant/token
 		SHELL
 
 	end
@@ -53,7 +53,7 @@ Vagrant.configure(2) do |config|
 			sudo systemctl start docker
 			sudo systemctl enable docker
 			sudo gpasswd -a "${USER}" docker
-			docker swarm join --token `cat /vagrant/token` 192.168.50.2:2377
+			#docker swarm join --token `cat /vagrant/token` 192.168.50.2:2377
 		SHELL
 	end
 end
