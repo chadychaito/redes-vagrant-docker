@@ -25,7 +25,7 @@ Vagrant.configure(2) do |config|
 			sudo apt update
 			sudo apt install -y python3
 			sudo apt install -y python3-pip
-			sudo pip install flask
+			sudo pip3 install flask
 			sudo apt -y install docker-ce docker-ce-cli containerd.io
 			
 			git clone https://github.com/chadychaito/redes-vagrant-docker.git

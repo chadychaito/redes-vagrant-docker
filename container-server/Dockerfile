@@ -1,6 +1,6 @@
 FROM python:3
 
-ADD app.py /flask
+ADD app.py /container-server/flask
 
 RUN pip install pystrich
 
