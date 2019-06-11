@@ -1,7 +1,7 @@
 FROM python:3
 
-ADD server.py /
+ADD app.py /flask
 
 RUN pip install pystrich
 
-CMD [ "python", "./flask/server.py" ]
+CMD [ "python3", "./flask/app.py" ]
