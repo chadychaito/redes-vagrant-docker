@@ -27,14 +27,14 @@ Vagrant.configure(2) do |config|
 			sudo apt install -y python3-pip
 			sudo pip3 install flask
 			sudo apt -y install docker-ce docker-ce-cli containerd.io
+			sudo systemctl start docker
 			
 			git clone https://github.com/chadychaito/redes-vagrant-docker.git
-			sudo systemctl start docker
 			cd redes-vagrant-docker/container-server
 			sudo docker swarm init --advertise-addr 192.168.50.2:2377 | sed 5!d > /vagrant/token.sh
 			sudo docker build -t server .
 			sudo docker network create -d overlay --subnet 10.0.10.0/24 ClusterNet
-			docker service create -d --name webservice1 --network ClusterNet --replicas 2 -p 5001:80 server
+			docker service create -d --name webservice1 --network ClusterNet --replicas 3 -p 5001:80 server
 		SHELL
 
 	end
@@ -56,11 +56,10 @@ Vagrant.configure(2) do |config|
 			sudo apt update
 			sudo apt install -y python3
 			sudo apt -y install docker-ce docker-ce-cli containerd.io
+			sudo systemctl start docker
 			#sudo systemctl enable docker
 
 			git clone https://github.com/chadychaito/redes-vagrant-docker.git
-
-			sudo systemctl start docker
 
 			cd redes-vagrant-docker/container-client
 			chmod +x /vagrant/token.sh
