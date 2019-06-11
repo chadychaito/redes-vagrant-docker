@@ -4,4 +4,4 @@ ADD client.py /
 
 RUN pip install pystrich
 
-CMD [ "python", "./client.py" ]
+CMD [ "python3", "./client.py" ]
