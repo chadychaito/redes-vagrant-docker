@@ -55,6 +55,8 @@ Vagrant.configure(2) do |config|
 			sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
 			sudo apt update
 			sudo apt install -y python3
+			sudo apt install -y python3-pip
+			sudo pip3 install docker
 			sudo apt -y install docker-ce docker-ce-cli containerd.io
 			sudo systemctl start docker
 			#sudo systemctl enable docker
