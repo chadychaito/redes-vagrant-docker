@@ -25,11 +25,11 @@ Vagrant.configure(2) do |config|
 			sudo apt update
 			sudo apt install -y python3
 			sudo apt -y install docker-ce docker-ce-cli containerd.io
-			sudo systemctl start docker
 			sudo systemctl enable docker
 			sudo gpasswd -a "${USER}" docker
+			git clone https://github.com/chadychaito/redes-vagrant-docker.git
 			sudo docker swarm init --advertise-addr 192.168.50.2:2377 | sed 5!d > /vagrant/token.sh
-			#sudo docker swarm join-token -q worker > /vagrant/token
+			sudo systemctl start docker
 		SHELL
 
 	end
@@ -51,16 +51,18 @@ Vagrant.configure(2) do |config|
 			sudo apt update
 			sudo apt install -y python3
 			sudo apt -y install docker-ce docker-ce-cli containerd.io
-			sudo systemctl start docker
-			sudo systemctl enable docker
+			#sudo systemctl enable docker
 			sudo gpasswd -a "${USER}" docker
+
+			git clone https://github.com/chadychaito/redes-vagrant-docker.git
 
 			cd redes-vagrant-docker/container-server
 			chmod +x /vagrant/token.sh
 			bash /vagrant/token.sh
 			sudo docker build -t client .
 
-			#sudo docker swarm join --token SWMTKN-1-5uulit8k912f01x6i1xn42cayqdd8ikc7s09sv5a5r8oqry2u5-7yq0yalgcdx2h6e0tevvbhb8x 192.168.50.2:2377
+			sudo systemctl start docker
+
 		SHELL
 	end
 end

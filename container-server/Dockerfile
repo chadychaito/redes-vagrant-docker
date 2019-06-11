@@ -4,4 +4,4 @@ ADD server.py /
 
 RUN pip install pystrich
 
-CMD [ "python", "./server.py" ]
+CMD [ "python", "./flask/server.py" ]
