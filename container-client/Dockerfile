@@ -1,3 +1,5 @@
 FROM python:3
 
-CMD [ "python3", "./client.py" ]
+COPY . /app
+
+CMD [ "python3", "/app/redes-vagrant-docker/container-client/client.py" ]

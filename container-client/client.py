@@ -11,27 +11,30 @@ print('==============================================')
 
 x = input()
 
-if x == 1:
-    cli = docker.from_env()
-    print(cli)
-    stats = cli.stats('containercliente')
-    print(stats)
-    url = 'http://192.168.50.2:5000/container'
-    for stat in stats:
-        # TODO
-        payload = {
-            'Horario da Requisiçao': stat,
-            'Nome do Container': stat,
-            'Id do Container': stat,
-            'Id da Imagem': stat,
-            'Uso de CPU': stat,
-            'Uso de Memoria': stat
-        }
-    headers = {'content-type': 'application/json'}
-    r = requests.post(url, data=json.dumps(payload), headers=headers)
-if x == 2:
-    url = 'http://192.168.50.2:5000/containers'
-    r = requests.get(url)
-    print(r)
-if x == 9:
-    exit()
+while (true):
+    if x == 1:
+        cli = docker.from_env()
+        print(cli)
+        stats = cli.stats('containercliente')
+        print(stats)
+        url = 'http://192.168.50.2:5000/container'
+        for stat in stats:
+            # TODO
+            payload = {
+                'Horario da Requisiçao': stat,
+                'Nome do Container': stat,
+                'Id do Container': stat,
+                'Id da Imagem': stat,
+                'Uso de CPU': stat,
+                'Uso de Memoria': stat
+            }
+        headers = {'content-type': 'application/json'}
+        r = requests.post(url, data=json.dumps(payload), headers=headers)
+    if x == 2:
+        url = 'http://192.168.50.2:5000/containers'
+        r = requests.get(url)
+        print(r)
+    if x == 9:
+        exit()
+
+    x = input()
