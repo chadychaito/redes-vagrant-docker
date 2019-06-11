@@ -13,7 +13,9 @@ x = input()
 
 if x == 1:
     cli = docker.from_env()
+    print(cli)
     stats = cli.stats('containercliente')
+    print(stats)
     url = 'http://192.168.50.2:5000/container'
     for stat in stats:
         # TODO
