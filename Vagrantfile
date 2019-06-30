@@ -38,7 +38,7 @@ Vagrant.configure(2) do |config|
 			sudo apt install -y python3
 			
 			echo "Command: sudo apt install -y python3-pip"
-			sudo apt install -y python3-pip
+			sudo DEBIAN_FRONTEND=noninteractive apt install -y python3-pip
 			
 			echo "Command: sudo pip3 install -y flask"
 			sudo pip3 install -y flask
