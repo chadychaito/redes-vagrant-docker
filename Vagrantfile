@@ -18,6 +18,7 @@ Vagrant.configure(2) do |config|
 				vb.name = "containerservidor"
 		end
 		containerservidor.vm.provision "shell", privileged: "false", inline: <<-SHELL
+			echo "## INICIANDO ##"
 			sudo apt -y install apt-transport-https ca-certificates curl gnupg-agent software-properties-common
 			curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
 			sudo apt-key fingerprint 0EBFCD88
@@ -31,6 +32,7 @@ Vagrant.configure(2) do |config|
 			
 			git clone https://github.com/chadychaito/redes-vagrant-docker.git
 			
+			echo "## SUBINDO APP SERVER.PY"
 			cd redes-vagrant-docker/container-server
 			sudo docker swarm init --advertise-addr 192.168.50.2:2377 | sed 5!d > /vagrant/token.sh
 			sudo docker build -t server .
@@ -38,16 +40,19 @@ Vagrant.configure(2) do |config|
 			docker service create -d --name webservice1 --network ClusterNet --replicas 3 -p 5001:80 server
 			sudo docker run -p 9092:9092 --restart=always --detach=true --name=server server
 
+			echo "## SUBINDO PROMETHEUS"
 			cd ../prometheus
 
 			sudo docker build -t my-prometheus .
 			sudo docker run -p 9091:9091 --restart=always --detach=true --name=prometheus my-prometheus
 
+			echo "## SUBINDO MONGO"
 			cd../vm-monitoring
 
 			sudo docker pull mongo 
 			sudo docker run -it -d mongo
 
+			echo "## SUBINDO APP SCRIPT.PY"
 			sudo docker build -t vm-mongo .
 			sudo docker run -d -p 5000:5000 vm-mongo
 
