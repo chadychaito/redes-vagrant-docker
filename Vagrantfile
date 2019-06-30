@@ -28,7 +28,7 @@ Vagrant.configure(2) do |config|
 			echo "Command: sudo apt-key fingerprint 0EBFCD88"
 			sudo apt-key fingerprint 0EBFCD88
 			
-			echo "Command: sudo add-apt-repository -y "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
+			echo "Command: sudo add-apt-repository -y"
 			sudo add-apt-repository -y "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
 			
 			echo "Command: sudo apt update"
