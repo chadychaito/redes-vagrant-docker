@@ -30,18 +30,33 @@ Vagrant.configure(2) do |config|
 			sudo systemctl start docker
 			
 			git clone https://github.com/chadychaito/redes-vagrant-docker.git
+			
 			cd redes-vagrant-docker/container-server
 			sudo docker swarm init --advertise-addr 192.168.50.2:2377 | sed 5!d > /vagrant/token.sh
 			sudo docker build -t server .
 			sudo docker network create -d overlay --subnet 10.0.10.0/24 ClusterNet
 			docker service create -d --name webservice1 --network ClusterNet --replicas 3 -p 5001:80 server
+			sudo docker run -p 9092:9092 --restart=always --detach=true --name=server server
+
+			cd ../prometheus
+
+			sudo docker build -t my-prometheus .
+			sudo docker run -p 9091:9091 --restart=always --detach=true --name=prometheus my-prometheus
+
+			cd../vm-monitoring
+
+			sudo docker pull mongo 
+			sudo docker run -it -d mongo
+
+			sudo docker build -t vm-mongo .
+			sudo docker run -d -p 5000:5000 vm-mongo
+
 		SHELL
 
 	end
-
+=begin
 	config.vm.define "containercliente" do |containercliente|
 		containercliente.vm.box = "ubuntu/bionic64"
-		#containercliente.vm.network "public_network"
 		containercliente.vm.network "private_network", ip: "192.168.50.3"
 		containercliente.vm.hostname = "containercliente"
 		containercliente.vm.provider "virtualbox" do |vb|
@@ -68,4 +83,5 @@ Vagrant.configure(2) do |config|
 
 		SHELL
 	end
+=end
 end

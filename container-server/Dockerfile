@@ -1,7 +1,5 @@
 FROM python:3
 
-COPY . /app
+ADD flask/app.py /
 
-EXPOSE 8080
-
-CMD [ "python3", "/app/flask/app.py" ]
+CMD [ "python3", "app/flask/app.py" ]

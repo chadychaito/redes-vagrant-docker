@@ -1,5 +1,5 @@
 FROM python:3
 
-COPY . /app
+ADD client.py /
 
 CMD [ "python3", "/app/client.py" ]
