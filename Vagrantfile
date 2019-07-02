@@ -54,21 +54,23 @@ Vagrant.configure(2) do |config|
 			sudo docker run -d --restart=always --net="host" --pid="host" --publish=9100:9100 --detach=true --name=node-exporter -v "/:/host:ro,rslave" quay.io/prometheus/node-exporter --path.rootfs /host
 			sudo docker run --restart=always --volume=/:/rootfs:ro --volume=/var/run:/var/run:ro --volume=/sys:/sys:ro --volume=/var/lib/docker/:/var/lib/docker:ro --volume=/dev/disk/:/dev/disk:ro --publish=8080:8080 --detach=true --name=cadvisor google/cadvisor:latest
 
-			echo "##               ##"
-			echo "## SUBINDO MONGO ##"
-			echo "##               ##"
+			echo "##                 ##"
+			echo "## SUBINDO APP2.PY ##"
+			echo "##                 ##"
 
-			cd ../vm-monitoring
+			cd ../container-monitoring
 
-			sudo docker pull mongo 
-			sudo docker run -it -d --restart=always --detach=true --name=mongo mongo
+			sudo docker build -t app2 .
+			sudo docker run -d -v -p 5001:5001 /var/run/docker.sock:/var/run/docker.sock app2
 
 			echo "##                 ##"
 			echo "## SUBINDO APP3.PY ##"
 			echo "##                 ##"
 
+			cd ../vm-monitoring
+
 			sudo docker build -t app3 .
-			sudo docker run -d -p 5000:5000 --restart=always --detach=true --name=app3 app3
+			sudo docker run -d -v -p 5000:5000 --restart=always --detach=true --name=app3 app3
 
 		SHELL
 
@@ -98,19 +100,53 @@ Vagrant.configure(2) do |config|
 			sudo systemctl start docker
 			#sudo systemctl enable docker
 			git clone https://github.com/chadychaito/redes-vagrant-docker.git
-			cd redes-vagrant-docker/container-client
+			cd redes-vagrant-docker/
 			chmod +x /vagrant/token.sh
 			bash /vagrant/token.sh
+
+			echo "##               ##"
+			echo "## SUBINDO MONGO ##"
+			echo "##               ##"
+
+			sudo docker pull mongo 
+			sudo docker run -it -d -p 27017 --restart=always --detach=true --name=mongo mongo
+			sudo docker run -it -d -p 27018 --restart=always --detach=true --name=mongo2 mongo
 
 			echo "##                  ##"
 			echo "## SUBINDO SERVIDOR ##"
 			echo "##                  ##"
-			echo "-- servidor em desenvolvimento --\n"
+			
+			cd file-transfer/servidor
+
+			sudo docker build -t servidor .
+			sudo docker run -d -v -p 5002:5002 /var/run/docker.sock:/var/run/docker.sock servidor
 
 			echo "##                 ##"
 			echo "## SUBINDO CLIENTE ##"
 			echo "##                 ##"
-			echo "-- cliente em desenvolvimento --\n"
+			
+			cd ../cliente
+
+			sudo docker build -t cliente .
+			sudo docker run -d -v -p 5003:5003 /var/run/docker.sock:/var/run/docker.sock cliente	
+
+			echo "##                 ##"
+			echo "## SUBINDO APP2.PY ##"
+			echo "##                 ##"
+
+			cd ../../container-monitoring
+
+			sudo docker build -t app2 .
+			sudo docker run -d -v -p 5001:5001 /var/run/docker.sock:/var/run/docker.sock app2
+
+			echo "##                 ##"
+			echo "## SUBINDO APP3.PY ##"
+			echo "##                 ##"
+
+			cd ../vm-monitoring
+
+			sudo docker build -t app3 .
+			sudo docker run -d -v -p 5000:5000 --restart=always --detach=true --name=app3 app3		
 
 		SHELL
 	end

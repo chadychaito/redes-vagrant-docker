@@ -5,7 +5,7 @@ import datetime
 import schedule
 from pymongo import MongoClient
 
-cliente = MongoClient('mongodb://172.17.0.3:27017/')
+cliente = MongoClient('mongodb://172.17.0.2:27017/')
 
 def insert():
     banco = cliente.redes

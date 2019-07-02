@@ -1,6 +1,6 @@
 FROM python:3
-ADD my_script.py /
+ADD app2.py /
 RUN pip install docker
 RUN pip install schedule
 RUN pip install pymongo
-CMD [ "python", "./my_script.py" ]
+CMD [ "python", "./app2.py" ]
