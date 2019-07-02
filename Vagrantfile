@@ -110,7 +110,7 @@ Vagrant.configure(2) do |config|
 
 			sudo docker pull mongo 
 			sudo docker run -it -d -p 27017:27017 --restart=always --detach=true --name=mongo mongo
-			sudo docker run -it -d -p 27018:27018 --restart=always --detach=true --name=mongo2 mongo
+			sudo docker run -it -d -p 27018:27017 --restart=always --detach=true --name=mongo2 mongo
 
 			echo "##                  ##"
 			echo "## SUBINDO SERVIDOR ##"
