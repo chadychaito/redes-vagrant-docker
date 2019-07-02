@@ -1,0 +1,5 @@
+docker run -it -d mongo
+
+sudo docker build -t app2 .
+
+sudo docker run -d -v /var/run/docker.sock:/var/run/docker.sock app2
