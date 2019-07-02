@@ -116,7 +116,7 @@ Vagrant.configure(2) do |config|
 			echo "## SUBINDO SERVIDOR ##"
 			echo "##                  ##"
 			
-			cd file-transfer/servidor
+			cd cliente-servidor/servidor
 
 			sudo docker build -t servidor .
 			sudo docker run -d -v /var/run/docker.sock:/var/run/docker.sock servidor
