@@ -61,7 +61,7 @@ Vagrant.configure(2) do |config|
 			cd ../container-monitoring
 
 			sudo docker build -t app2 .
-			sudo docker run -d -v -p 5001:5001 /var/run/docker.sock:/var/run/docker.sock app2
+			sudo docker run -d -v /var/run/docker.sock:/var/run/docker.sock app2
 
 			echo "##                 ##"
 			echo "## SUBINDO APP3.PY ##"
@@ -70,7 +70,7 @@ Vagrant.configure(2) do |config|
 			cd ../vm-monitoring
 
 			sudo docker build -t app3 .
-			sudo docker run -d -v -p 5000:5000 --restart=always --detach=true --name=app3 app3
+			sudo docker run -d -v --restart=always --detach=true --name=app3 app3
 
 		SHELL
 
@@ -109,8 +109,8 @@ Vagrant.configure(2) do |config|
 			echo "##               ##"
 
 			sudo docker pull mongo 
-			sudo docker run -it -d -p 27017 --restart=always --detach=true --name=mongo mongo
-			sudo docker run -it -d -p 27018 --restart=always --detach=true --name=mongo2 mongo
+			sudo docker run -it -d -p 27017:27017 --restart=always --detach=true --name=mongo mongo
+			sudo docker run -it -d -p 27018:27018 --restart=always --detach=true --name=mongo2 mongo
 
 			echo "##                  ##"
 			echo "## SUBINDO SERVIDOR ##"
@@ -119,7 +119,7 @@ Vagrant.configure(2) do |config|
 			cd file-transfer/servidor
 
 			sudo docker build -t servidor .
-			sudo docker run -d -v -p 5002:5002 /var/run/docker.sock:/var/run/docker.sock servidor
+			sudo docker run -d -v /var/run/docker.sock:/var/run/docker.sock servidor
 
 			echo "##                 ##"
 			echo "## SUBINDO CLIENTE ##"
@@ -128,7 +128,7 @@ Vagrant.configure(2) do |config|
 			cd ../cliente
 
 			sudo docker build -t cliente .
-			sudo docker run -d -v -p 5003:5003 /var/run/docker.sock:/var/run/docker.sock cliente	
+			sudo docker run -d -v /var/run/docker.sock:/var/run/docker.sock cliente	
 
 			echo "##                 ##"
 			echo "## SUBINDO APP2.PY ##"
@@ -137,7 +137,7 @@ Vagrant.configure(2) do |config|
 			cd ../../container-monitoring
 
 			sudo docker build -t app2 .
-			sudo docker run -d -v -p 5001:5001 /var/run/docker.sock:/var/run/docker.sock app2
+			sudo docker run -d -v /var/run/docker.sock:/var/run/docker.sock app2
 
 			echo "##                 ##"
 			echo "## SUBINDO APP3.PY ##"
@@ -146,7 +146,7 @@ Vagrant.configure(2) do |config|
 			cd ../vm-monitoring
 
 			sudo docker build -t app3 .
-			sudo docker run -d -v -p 5000:5000 --restart=always --detach=true --name=app3 app3		
+			sudo docker run -d -v --restart=always --detach=true --name=app3 app3		
 
 		SHELL
 	end
