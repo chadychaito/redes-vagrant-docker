@@ -4,7 +4,7 @@ import datetime
 import schedule
 from pymongo import MongoClient
 
-cliente = MongoClient('mongodb://172.17.0.3:27018/')
+cliente = MongoClient('mongodb://192.168.50.3:27018/')
 cli = docker.from_env()
 
 def insert():
